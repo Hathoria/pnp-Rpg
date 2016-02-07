@@ -1,20 +1,6 @@
 from Tkinter import *
 from collections import OrderedDict
 
-"""
-pane1 = PanedWindow()
-lbEffect = Listbox(pane1, height=13, exportselection=False)
-lbTarget = Listbox(pane1, height=3, exportselection=False)
-lbMagnitude = Listbox(pane1, height=9, exportselection=False)
-lbCharges = Listbox(pane1, height=7, exportselection=False)
-lbDuration = Listbox(pane1, height=8, exportselection=False)
-fEffect = Label(pane1, text='Effect')
-fTarget = Label(pane1, text='Target')
-fMagnitude = Label(pane1, text='Magnitude')
-fCharges = Label(pane1, text='Charges')
-fDuration = Label(pane1, text='Duration')
-Total = Text(pane1, width=4)
-"""
 master = Tk()
 lbEffect = Listbox(master, height=13, exportselection=False)
 lbEffect.grid(row=1, column=0, sticky=N)
