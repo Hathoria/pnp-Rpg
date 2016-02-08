@@ -1,24 +1,24 @@
-from Tkinter import *
+import Tkinter
 from collections import OrderedDict
 
-master = Tk()
-lbEffect = Listbox(master, height=13, exportselection=False)
-lbEffect.grid(row=1, column=0, sticky=N)
-lbTarget = Listbox(master, height=2, exportselection=False)
-lbTarget.grid(row=1, column=1, sticky=N)
-lbMagnitude = Listbox(master, height=10, exportselection=False)
-lbMagnitude.grid(row=1, column=2, sticky=N)
-lbCharges = Listbox(master, height=6, exportselection=False)
-lbCharges.grid(row=1, column=3, sticky=N)
-lbDuration = Listbox(master, height=7, exportselection=False)
-lbDuration.grid(row=1, column=4, sticky=N)
-Total = Text(master, width=5, height=1)
-Total.grid(row=2, column=4, sticky=N)
-Label(master, text='Effect').grid(row=0, column=0)
-Label(master, text='Target').grid(row=0, column=1)
-Label(master, text='Magnitude').grid(row=0, column=2)
-Label(master, text='Charges').grid(row=0, column=3)
-Label(master, text='Duration').grid(row=0, column=4)
+master = Tkinter.Tk()
+lbEffect = Tkinter.Listbox(master, height=13, exportselection=False)
+lbEffect.grid(row=1, column=0, sticky=Tkinter.N)
+lbTarget = Tkinter.Listbox(master, height=2, exportselection=False)
+lbTarget.grid(row=1, column=1, sticky=Tkinter.N)
+lbMagnitude = Tkinter.Listbox(master, height=10, exportselection=False)
+lbMagnitude.grid(row=1, column=2, sticky=Tkinter.N)
+lbCharges = Tkinter.Listbox(master, height=6, exportselection=False)
+lbCharges.grid(row=1, column=3, sticky=Tkinter.N)
+lbDuration = Tkinter.Listbox(master, height=7, exportselection=False)
+lbDuration.grid(row=1, column=4, sticky=Tkinter.N)
+Total = Tkinter.Text(master, width=5, height=1)
+Total.grid(row=2, column=4, sticky=Tkinter.N)
+Tkinter.Label(master, text='Effect').grid(row=0, column=0)
+Tkinter.Label(master, text='Target').grid(row=0, column=1)
+Tkinter.Label(master, text='Magnitude').grid(row=0, column=2)
+Tkinter.Label(master, text='Charges').grid(row=0, column=3)
+Tkinter.Label(master, text='Duration').grid(row=0, column=4)
 
 def funcReset():
     global Eff, Mag, Char, Tar, Dur
@@ -28,7 +28,7 @@ def funcReset():
     Tar = 0
     Dur = 0
 
-resetButton = Button(master, text="Reset", command=funcReset)
+resetButton = Tkinter.Button(master, text="Reset", command=funcReset)
 resetButton.grid(row=2, column=2)
 
 Eff = 0
@@ -46,7 +46,7 @@ dTarget = OrderedDict([('Self: 0', 0), ('Touch: 5', 5)])
 dDuration = OrderedDict([('Instant: 0', 0), ('1 turn: 5', 5), ('2 turns: 10', 10), ('3 turns: 15', 15), ('4 turns: 20', 20), ('5 turns: 30', 30), ('1 scene: 40', 40), ('Permanent: 0', 0), ('none', 0)])
 
 for kEf, vEf in dEffect.items():
-    lbEffect.insert(END, kEf)
+    lbEffect.insert(Tkinter.END, kEf)
 
 #Choose an Effect and make changes to listboxes to support that choice. And return the values.
 def EffectSel(x):
@@ -66,38 +66,39 @@ def EffectSel(x):
         toValue = (Eff * Mag) + Dur + Char + Tar
     else:
         toValue = Eff + Dur + Char + Tar
-    Total.delete(1.0, END)
-    Total.insert(END, toValue)
-
-    lbDuration.delete(0, END)
-    lbCharges.delete(0, END)
-    lbTarget.delete(0, END)
+    Total.delete(1.0, Tkinter.END)
+    Total.insert(Tkinter.END, toValue)
+#Delete Lisboxes
+    lbDuration.delete(0, Tkinter.END)
+    lbCharges.delete(0, Tkinter.END)
+    lbTarget.delete(0, Tkinter.END)
+#Determine Target
     if selEfCheck == (3,) or selEfCheck == (4,) or selEfCheck == (5,) or selEfCheck == (7,) or selEfCheck == (8,) or selEfCheck == (9,) or selEfCheck == (11,):
-        lbTarget.insert(END, 'Self: 0')
+        lbTarget.insert(Tkinter.END, 'Self: 0')
     elif selEfCheck == (0,) or selEfCheck == (2,) or selEfCheck == (6,) or selEfCheck == (12,):
-        lbTarget.insert(END, 'Touch: 5')
+        lbTarget.insert(Tkinter.END, 'Touch: 5')
     else:
         for kTa in dTarget:
-            lbTarget.insert(END, kTa)
-
+            lbTarget.insert(Tkinter.END, kTa)
+#Determine Magnitude and Charges
     if selEfCheck < (6,):
-        lbMagnitude.delete(0, END)
+        lbMagnitude.delete(0, Tkinter.END)
         if selEfCheck < (3,):
-            lbDuration.delete(0, END)
+            lbDuration.delete(0, Tkinter.END)
             for kDie in dMagnitudeDie:
-                lbMagnitude.insert(END, kDie)
+                lbMagnitude.insert(Tkinter.END, kDie)
             for kCh in dCharges:
-                lbCharges.insert(END, kCh)
+                lbCharges.insert(Tkinter.END, kCh)
         else:
-            lbDuration.delete(0, END)
+            lbDuration.delete(0, Tkinter.END)
             for kCh in dCharges:
-                lbCharges.insert(END, kCh)
+                lbCharges.insert(Tkinter.END, kCh)
             for kMag in dMagnitudeNum:
-                lbMagnitude.insert(END, kMag)
+                lbMagnitude.insert(Tkinter.END, kMag)
     else:
-        lbMagnitude.delete(0, END)
+        lbMagnitude.delete(0, Tkinter.END)
         for kCh in dCharges:
-            lbCharges.insert(END, kCh)
+            lbCharges.insert(Tkinter.END, kCh)
 
 #Choose Target and return value.
 def TargetSel(x):
@@ -119,8 +120,8 @@ def TargetSel(x):
         toValue = (Eff * Mag) + Dur + Char + Tar
     else:
         toValue = Eff + Dur + Char + Tar
-    Total.delete(1.0, END)
-    Total.insert(END, toValue)
+    Total.delete(1.0, Tkinter.END)
+    Total.insert(Tkinter.END, toValue)
 
 #Choose Charges and return values. Also if Charge permanent, make the Duration Permanent.
 def ChargesSel(x):
@@ -138,24 +139,24 @@ def ChargesSel(x):
         toValue = (Eff * Mag) + Dur + Char + Tar
     else:
         toValue = Eff + Dur + Char + Tar
-    lbDuration.delete(0, END)
-
+    lbDuration.delete(0, Tkinter.END)
+#check if Permanent Charges has been selected and sets Duration accordingly.
     if selEfCheck == (0,) or selEfCheck == (1,) or selEfCheck == (2,) or selEfCheck == (10,):
-        lbDuration.insert(END, 'none')
+        lbDuration.insert(Tkinter.END, 'none')
     elif selEfCheck == (6,) or selEfCheck == (9,) or selEfCheck == (11,) or selEfCheck == (12,):
         for kDur in dDuration:
             if kDur != 'Permanent: 0' and kDur != 'none':
-                lbDuration.insert(END, kDur)
+                lbDuration.insert(Tkinter.END, kDur)
     else:
         for kDur in dDuration:
             if kDur != 'Permanent: 0' and kDur != 'none':
-                lbDuration.insert(END, kDur)
+                lbDuration.insert(Tkinter.END, kDur)
         if selCh == 'Permanent: 50':
-            lbDuration.delete(0, END)
-            lbDuration.insert(END, 'Permanent: 0')
+            lbDuration.delete(0, Tkinter.END)
+            lbDuration.insert(Tkinter.END, 'Permanent: 0')
 
-    Total.delete(1.0, END)
-    Total.insert(END, toValue)
+    Total.delete(1.0, Tkinter.END)
+    Total.insert(Tkinter.END, toValue)
 
 #Choose Magnitude and return value. Also Check what Dictionary the Magnitude is.
 def MagnitudeSel(x):
@@ -166,7 +167,7 @@ def MagnitudeSel(x):
     global Dur
     global Tar
     selMag = lbMagnitude.get(lbMagnitude.curselection())
-    MagCheck = lbMagnitude.get(END)
+    MagCheck = lbMagnitude.get(Tkinter.END)
     if MagCheck == '1d12: x9':
         Mag = dMagnitudeDie[selMag]
     else:
@@ -177,8 +178,8 @@ def MagnitudeSel(x):
         toValue = (Eff * Mag) + Dur + Char + Tar
     else:
         toValue = Eff + Dur + Char + Tar
-    Total.delete(1.0, END)
-    Total.insert(END, toValue)
+    Total.delete(1.0, Tkinter.END)
+    Total.insert(Tkinter.END, toValue)
 #Choose Duration, automatically set as Permanent if Charges Permanent. Return values.
 def DurationSel(x):
     global toValue
@@ -195,28 +196,13 @@ def DurationSel(x):
         toValue = (Eff * Mag) + Dur + Char + Tar
     else:
         toValue = Eff + Dur + Char + Tar
-    Total.delete(1.0, END)
-    Total.insert(END, toValue)
-
-Total.insert(END, toValue)
+    Total.delete(1.0, Tkinter.END)
+    Total.insert(Tkinter.END, toValue)
+#pack and run everything
+Total.insert(Tkinter.END, toValue)
 lbEffect.bind('<<ListboxSelect>>', EffectSel)
 lbTarget.bind('<<ListboxSelect>>', TargetSel)
 lbMagnitude.bind('<<ListboxSelect>>', MagnitudeSel)
 lbCharges.bind('<<ListboxSelect>>', ChargesSel)
 lbDuration.bind('<<ListboxSelect>>', DurationSel)
-"""
-pane1.pack(fill=BOTH, expand=1)
-pane1.add(fEffect)
-pane1.add(lbEffect)
-pane1.add(fTarget)
-pane1.add(lbTarget)
-pane1.add(fMagnitude)
-pane1.add(lbMagnitude)
-pane1.add(fCharges)
-pane1.add(lbCharges)
-pane1.add(fDuration)
-pane1.add(lbDuration)
-pane1.add(Total)
-pane1.add(resetButton)
-"""
-mainloop()
+Tkinter.mainloop()
